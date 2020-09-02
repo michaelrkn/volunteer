@@ -1,11 +1,17 @@
 {% extends "core/base.html" %}
 {% load static %}
 {% load crispy_forms_tags %}
+{% load userChecks %}
 {% block content %}
 
     <div class="container">
         <main>
-            <h1>Build Your Page</h1>
+
+            {% if request.user|user_has_profile %}
+                <h1>Edit your page details</h1>
+        {% else %}
+    <h1>Build Your Page</h1>
+        {% endif %}
 
             {% crispy form %}
 

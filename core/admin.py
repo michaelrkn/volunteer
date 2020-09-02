@@ -27,7 +27,7 @@ class FriendsInline(admin.TabularInline):
 
 @admin.register(Volunteer)
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ("slug","title", "_friends")
+    list_display = ("slug","user", "_friends")
 
     inlines = [
         FriendsInline

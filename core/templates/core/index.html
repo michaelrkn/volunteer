@@ -7,19 +7,19 @@
         <main>
             <div class="text-center">
             <h1>Volunteer Command Center</h1>
+                <div class="my-5">
+                {% if user.is_authenticated %}
+            <h4>Welcome {{ request.user.first_name }}</h4>
+            <p>Go to your <a href="{% url 'dashboard' %}">dashboard</a></p>
+                {% else %}
+            <a href="{% url 'signup' %}" class="button" >Enter Voter Registration Challenge</a>
+
+                {% endif %}
+                </div>
+
             </div>
 
-{% if user.is_authenticated %}
-        <a href="{% url 'profile' %}" class="nav-link">Profile</a>
-        <a href="{% url 'friends' %}" class="nav-link">Friends</a>
-        <a href="{% url 'dashboard' %}" class="nav-link">Dashboard</a>
-        <a href="{% url 'logout' %}" class="nav-link">Logout</a>
 
-        {% else %}
-        <a href="{% url 'login' %}" class="nav-link">Login</a></li>
-        <a href="{% url 'signup' %}" class="nav-link">Sign Up</a></li>
-
-        {% endif %}
 
         </main>
     </div>

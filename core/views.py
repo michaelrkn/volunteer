@@ -43,7 +43,7 @@ def dashboard(request):
 
 
     # context = {'result': 'heres your link' + request.user.volunteer.slug+table[1][1]}
-    context = {'pageOwner':request.user}
+    context = {'pageOwner':request.user,'pct':min(100,request.user.volunteer.reg*10)}
     return render(request, 'core/dashboard.html', context)
 
 
