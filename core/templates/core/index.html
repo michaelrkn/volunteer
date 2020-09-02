@@ -6,9 +6,20 @@
     <div class="container">
         <main>
             <div class="text-center">
-            <h1>Register Your Friends</h1>
+            <h1>Volunteer Command Center</h1>
             </div>
 
+{% if user.is_authenticated %}
+        <a href="{% url 'profile' %}" class="nav-link">Profile</a>
+        <a href="{% url 'friends' %}" class="nav-link">Friends</a>
+        <a href="{% url 'dashboard' %}" class="nav-link">Dashboard</a>
+        <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+
+        {% else %}
+        <a href="{% url 'login' %}" class="nav-link">Login</a></li>
+        <a href="{% url 'signup' %}" class="nav-link">Sign Up</a></li>
+
+        {% endif %}
 
         </main>
     </div>
