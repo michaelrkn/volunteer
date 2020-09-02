@@ -37,7 +37,7 @@ def profile_check(user):
         return False
     return True
 
-
+@login_required
 @user_passes_test(profile_check, login_url='/profile')
 def dashboard(request):
 
@@ -98,7 +98,7 @@ def profile(request):
     context = {'form': form}
     return render(request, 'core/profile.html', context)
 
-
+@login_required
 @user_passes_test(profile_check, login_url='/profile')
 def friends(request):
     # FriendFormSet=formset_factory(FriendForm, extra=2)
