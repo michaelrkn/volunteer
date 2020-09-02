@@ -7,15 +7,18 @@ from django.dispatch import receiver
 class Volunteer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    slug=models.SlugField(max_length=30,unique=True,null=True,error_messages={'unique':"This URL is already taken"},verbose_name='Your Custom URL Suffix',help_text="Once you choose a URL, you may not change it later")
-    title=models.CharField(max_length=140,verbose_name='Page Title')
-    prompt=models.TextField(max_length=2000,verbose_name='Voting Prompt')
+    slug=models.SlugField(max_length=30,unique=True,null=True,error_messages={'unique':"This URL is already taken"},verbose_name='Your Custom URL',help_text="Choose a custom URL to make your page your own! Remember - once you choose a URL, you won’t be able to change it later.")
     reg=models.IntegerField(default=0)
     outvote_texts = models.IntegerField(default=0)
-    phone_regex = RegexValidator(regex=r'^\d{10}$',
-                                 message="Phone number must be entered in the format: '1234567890'. Up to 10 digits allowed.")
-    phone = models.CharField(validators=[phone_regex], max_length=10,blank=True,null=True,help_text="Use the same phone number that you used to register your Outvote account")
 
+    zip_regex = RegexValidator(regex=r'^\d{5}$',
+                                 message="ZIP Code must be 5 digits and entered in the format: '12345'.")
+    zip_code = models.CharField(validators=[zip_regex], max_length=5,verbose_name='ZIP Code')
+
+    phone_regex = RegexValidator(regex=r'^\d{10}$',
+                                 message="Phone number must be 10 digits and entered in the format: '1234567890'.")
+    phone = models.CharField(validators=[phone_regex], max_length=10,help_text="Use the same phone number that you used to register your Outvote account, if you have one")
+    can_text = models.BooleanField(verbose_name='By signing up, you consent to receive periodic text messages from When We All Vote (56005). Message and data rates may apply. Text HELP for more information. Text STOP to stop receiving messages.',default=False)
     # bio = models.TextField(max_length=500, blank=True)
     # location = models.CharField(max_length=30)
     # birth_date = models.DateField(null=True, blank=True)
@@ -40,15 +43,10 @@ class Volunteer(models.Model):
 class Friend(models.Model):
     volunteer = models.ForeignKey(Volunteer, on_delete=models.CASCADE, related_name='friends')
 
-    first_name=models.CharField(max_length=100,verbose_name='First Name')
-    last_name=models.CharField(max_length=100,verbose_name='Last Name')
-    city=models.CharField(max_length=100)
-    state=models.CharField(max_length=2)
-    email = models.EmailField(max_length=100)
-    # phone = models.CharField(max_length=20)
-    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
-                                 message="Phone number must be entered in the format: '+1234567890'. Up to 15 digits allowed.")
-    phone = models.CharField(validators=[phone_regex], max_length=17)
+    first_name=models.CharField(max_length=100,verbose_name='First Name',blank=True)
+    last_name=models.CharField(max_length=100,verbose_name='Last Name',blank=True)
+    city=models.CharField(max_length=100,blank=True)
+    state=models.CharField(max_length=2,blank=True)
 
     def __str__(self):
         return self.first_name

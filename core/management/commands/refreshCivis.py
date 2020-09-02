@@ -23,21 +23,19 @@ class Command(BaseCommand):
             except Volunteer.DoesNotExist:
                 pass
         self.stdout.write(self.style.SUCCESS('Updated RTV counts'))
-        outvote = civis.io.read_civis_sql(
-            "select distinct phone, actions_performed from wwav_outvote.users where phone is not null",
-            "TMC")
-        self.stdout.write(self.style.SUCCESS('Made Outvote query'))
-        for row in outvote[1:]:
-
-            # v = Volunteer.objects.get(phone=row[0])
-            vols = Volunteer.objects.filter(phone=row[0][-10:])
-            if vols.exists():
-                for v in vols.iterator():
-                    v.outvote_texts = row[1]
-                    # print(v)
-                    # print(v.reg)
-                    v.save()
-
-
-
-        self.stdout.write(self.style.SUCCESS('Updated Outvote counts'))
+        # outvote = civis.io.read_civis_sql(
+        #     "select distinct phone, actions_performed from wwav_outvote.users where phone is not null",
+        #     "TMC")
+        # self.stdout.write(self.style.SUCCESS('Made Outvote query'))
+        # for row in outvote[1:]:
+        #
+        #     # v = Volunteer.objects.get(phone=row[0])
+        #     vols = Volunteer.objects.filter(phone=row[0][-10:])
+        #     if vols.exists():
+        #         for v in vols.iterator():
+        #             v.outvote_texts = row[1]
+        #             # print(v)
+        #             # print(v.reg)
+        #             v.save()
+        #
+        # self.stdout.write(self.style.SUCCESS('Updated Outvote counts'))

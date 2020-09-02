@@ -6,19 +6,27 @@
     <div class="container">
         <main>
             <div class="text-center">
-            <h1>Volunteer Command Center</h1>
-                <div class="my-5">
+{#            <h1>Volunteer Command Center</h1>#}
+
+
+            </div>
+<div class="my-5">
                 {% if user.is_authenticated %}
             <h4>Welcome {{ request.user.first_name }}</h4>
             <p>Go to your <a href="{% url 'dashboard' %}">dashboard</a></p>
                 {% else %}
-            <a href="{% url 'signup' %}" class="button" >Enter Voter Registration Challenge</a>
+                    <h4>Pledge to register 10 eligible voters for a chance to (virtually) hang out with Michelle Obama! Follow the easy steps below to get started:</h4>
+            <ol>
+                <li>Sign up below with a username and password so you can check back on our site and see who actually registered to vote! </li>
+                <li>After you sign up, you'll get your own voter registration link.</li>
+                <li>Then text or DM 10 friends the link! These should be people who may need to check their voter registration.</li>
+                <li>Check back on this site to see which of your friends check their registration.</li>
+            </ol>
+
+            <a href="{% url 'signup' %}" class="button" >SIGN ME UP!</a>
 
                 {% endif %}
                 </div>
-
-            </div>
-
 
 
         </main>

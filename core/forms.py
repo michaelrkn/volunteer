@@ -31,7 +31,7 @@ class VolunteerForm(ModelForm):
 
         self.helper = FormHelper(self)
 
-        self.helper.layout.append(Submit('submit', 'Submit', css_class='btn-primary'))
+        self.helper.layout.append(Submit('submit', 'CREATE MY PAGE', css_class='btn-primary'))
 
     class Meta:
         model = Volunteer
@@ -40,7 +40,7 @@ class VolunteerForm(ModelForm):
         #         'unique': "This URL is taken",
         #     }
         # }
-        fields = ['slug', 'title', 'prompt']
+        fields = ['slug','zip_code','phone','can_text']
 
 class FriendForm(ModelForm):
     def __init__(self, *args, **kwargs):
@@ -52,22 +52,22 @@ class FriendForm(ModelForm):
 
     class Meta:
         model = Friend
-        fields = ['first_name','last_name','city','state','email','phone']
+        fields = ['first_name','last_name','city','state']
 
 class FriendFormSetHelper(FormHelper):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
 
-class OutvoteForm(ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(OutvoteForm, self).__init__(*args, **kwargs)
-
-        self.helper = FormHelper(self)
-
-        self.helper.layout.append(Submit('submit', 'Submit', css_class='btn-primary'))
-
-    class Meta:
-        model = Volunteer
-
-        fields = ['phone']
+# class OutvoteForm(ModelForm):
+#     def __init__(self, *args, **kwargs):
+#         super(OutvoteForm, self).__init__(*args, **kwargs)
+#
+#         self.helper = FormHelper(self)
+#
+#         self.helper.layout.append(Submit('submit', 'Submit', css_class='btn-primary'))
+#
+#     class Meta:
+#         model = Volunteer
+#
+#         fields = ['phone']
