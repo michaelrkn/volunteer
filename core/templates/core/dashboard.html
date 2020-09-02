@@ -1,0 +1,21 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block content %}
+
+    <div class="container">
+        <main>
+            <h1>Your Dashboard</h1>
+
+{#            Donate to: {{ result }}#}
+            <p>You have currently registered {{ pageOwner.volunteer.reg }}/10 voters.</p>
+
+            <p>Your custom URL: <a href="{% url 'page' pageOwner.volunteer.slug %}">{% url 'page' pageOwner.volunteer.slug %}</a></p>
+            <p><a href="https://www.facebook.com/sharer/sharer.php?u=https://myschoolvotes.whenweallvote.org/{{ pageOwner.volunteer.slug }}&amp;quote={{ pageOwner.first_name }}%20has%20registered%202%20voters%20so%20far! #MySchoolVotes">Share on Facebook</a></p>
+            <p><a href="https://twitter.com/intent/tweet?text={{ pageOwner.first_name }}%20has%20registered%202%20voters%20so%20far!%20%23MySchoolVotes%0Ahttps%3A%2F%2Fmyschoolvotes.whenweallvote.org%2F{{ pageOwner.volunteer.slug }}">Share on Twitter</a></p>
+
+        </main>
+    </div>
+
+
+{% endblock content %}
+

@@ -1,0 +1,15 @@
+.hidden {
+    display: none;
+}
+input[type=email] {
+    background: transparent;
+    border: none;
+    border-bottom: solid 1px #1f244e;
+    color: #1f244e;
+    transition: all 200ms ease;
+}
+
+input[type=email]:focus {
+    background-color: #1f244e;
+    color: #fff;
+}

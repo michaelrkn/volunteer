@@ -1,0 +1,16 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block content %}
+
+    <div class="container">
+        <main>
+            <h1>{{ pageOwner.volunteer.title }}</h1>
+
+            <h5 class="my-5">Page created by {{ pageOwner.first_name }} {{ pageOwner.last_name }}</h5>
+            {{ pageOwner.first_name }} has registered {{ reg }} voters so far.
+            <iframe id="rtv-iframe" width="100%" height="600px" frameborder="0" src="https://register.rockthevote.com?partner=37284&amp;tracking=msv-custom-{{ pageOwner.volunteer.slug }}" scrolling="no" style="overflow: hidden; height: 642px;"></iframe>
+        </main>
+    </div>
+
+{% endblock content %}
+
