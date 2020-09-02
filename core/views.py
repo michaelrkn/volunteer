@@ -124,7 +124,7 @@ def friends(request):
 
         # if a GET (or any other method) we'll create a blank form
     else:
-        formset = FriendFormSet()#FriendForm()
+        formset = FriendFormSet(queryset=Friend.objects.filter(volunteer=request.user.volunteer))#FriendForm()
 
     context = {'formset': formset, 'helper': helper}
     return render(request, 'core/friends.html', context)
