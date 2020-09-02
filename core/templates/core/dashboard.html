@@ -13,7 +13,7 @@
 
             <p>Copy and paste this message to reach out to 10 of your friends in a DM or text:</p>
             <div class="border rounded p-3 mb-2">
-                <p class="copy">Hey! We’re getting so close to this election. I wanted to make sure you've double checked your voter registration — it’ll take 7 minutes tops! LINK <a href="{% url 'page' pageOwner.volunteer.slug %}">{{request.get_host}}{% url 'page' pageOwner.volunteer.slug %}</a></p>
+                <p class="copy">Hey! We’re getting so close to this election. I wanted to make sure you've double checked your voter registration — it’ll take 7 minutes tops! <a href="{% url 'page' pageOwner.volunteer.slug %}">{{request.get_host}}{% url 'page' pageOwner.volunteer.slug %}</a></p>
             </div>
             <div>
                 <button class="copybtn button small mb-0">Copy Text</button>
