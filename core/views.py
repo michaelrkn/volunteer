@@ -93,7 +93,7 @@ def profile(request):
 
         # if a GET (or any other method) we'll create a blank form
     else:
-        form = VolunteerForm()
+        form = VolunteerForm(instance=request.user.volunteer)
 
     context = {'form': form}
     return render(request, 'core/profile.html', context)
