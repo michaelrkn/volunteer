@@ -57,3 +57,17 @@ class FriendForm(ModelForm):
 class FriendFormSetHelper(FormHelper):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+
+class OutvoteForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(OutvoteForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper(self)
+
+        self.helper.layout.append(Submit('submit', 'Submit', css_class='btn-primary'))
+
+    class Meta:
+        model = Volunteer
+
+        fields = ['phone']

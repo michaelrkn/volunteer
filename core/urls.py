@@ -8,5 +8,6 @@ urlpatterns = [
     path('signup', views.signup, name='signup'),
     path('dashboard', views.dashboard, name='dashboard'),
     path('friends', views.friends, name='friends'),
+    path('outvote', views.outvote, name='outvote'),
     path('page/<str:urlSlug>', views.page, name='page'),
 ]

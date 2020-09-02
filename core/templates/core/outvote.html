@@ -1,0 +1,18 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+    <div class="container">
+        <main>
+            <h1>Connect your Outvote Account</h1>
+
+            {% crispy form %}
+
+        </main>
+    </div>
+
+
+
+{% endblock content %}
+

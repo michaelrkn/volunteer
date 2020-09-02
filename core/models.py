@@ -7,10 +7,15 @@ from django.dispatch import receiver
 class Volunteer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    slug=models.SlugField(max_length=30,unique=True,null=True,error_messages={'unique':"This URL is already taken"},verbose_name='Your Custom URL Suffix')
+    slug=models.SlugField(max_length=30,unique=True,null=True,error_messages={'unique':"This URL is already taken"},verbose_name='Your Custom URL Suffix',help_text="Once you choose a URL, you may not change it later")
     title=models.CharField(max_length=140,verbose_name='Page Title')
     prompt=models.TextField(max_length=2000,verbose_name='Voting Prompt')
     reg=models.IntegerField(default=0)
+    outvote_texts = models.IntegerField(default=0)
+    phone_regex = RegexValidator(regex=r'^\d{10}$',
+                                 message="Phone number must be entered in the format: '1234567890'. Up to 10 digits allowed.")
+    phone = models.CharField(validators=[phone_regex], max_length=10,blank=True,null=True,help_text="Use the same phone number that you used to register your Outvote account")
+
     # bio = models.TextField(max_length=500, blank=True)
     # location = models.CharField(max_length=30)
     # birth_date = models.DateField(null=True, blank=True)

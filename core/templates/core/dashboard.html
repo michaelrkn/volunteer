@@ -1,5 +1,6 @@
 {% extends "core/base.html" %}
 {% load static %}
+{% load userChecks %}
 {% block content %}
 
     <div class="container">
@@ -14,6 +15,17 @@
             </div>
             <p><a href="https://www.facebook.com/sharer/sharer.php?u=https://myschoolvotes.whenweallvote.org/{{ pageOwner.volunteer.slug }}&amp;quote={{ pageOwner.first_name }}%20has%20registered%202%20voters%20so%20far! #MySchoolVotes">Share on Facebook</a></p>
             <p><a href="https://twitter.com/intent/tweet?text={{ pageOwner.first_name }}%20has%20registered%202%20voters%20so%20far!%20%23MySchoolVotes%0Ahttps%3A%2F%2Fmyschoolvotes.whenweallvote.org%2F{{ pageOwner.volunteer.slug }}">Share on Twitter</a></p>
+
+
+        <h3>Outvote</h3>
+        {% if request.user|user_has_phone %}
+            <p>You have texted {{ pageOwner.volunteer.outvote_texts }} people in the WWAV campaign on Outvote.</p>
+
+            <p>Not working right? <a href="{% url 'outvote' %}">Check your phone number on file</a></p>
+
+        {% else %}
+    <p><a href="{% url 'outvote' %}">Connect your Outvote Account</a></p>
+        {% endif %}
 
         </main>
     </div>

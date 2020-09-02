@@ -5,7 +5,7 @@ from django.shortcuts import render
 # Create your views here.
 from django.core.exceptions import ValidationError
 
-from .forms import SignUpForm, FriendForm, FriendFormSetHelper
+from .forms import SignUpForm, FriendForm, FriendFormSetHelper, OutvoteForm
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
@@ -84,6 +84,8 @@ def profile(request):
     if request.method == 'POST':
 
         form = VolunteerForm(request.POST, instance=request.user.volunteer)
+        if profile_check(request.user):
+            form.fields['slug'].disabled = True
         if form.is_valid():
             user = request.user
 
@@ -94,6 +96,8 @@ def profile(request):
         # if a GET (or any other method) we'll create a blank form
     else:
         form = VolunteerForm(instance=request.user.volunteer)
+        if profile_check(request.user):
+            form.fields['slug'].disabled = True
 
     context = {'form': form}
     return render(request, 'core/profile.html', context)
@@ -128,3 +132,28 @@ def friends(request):
 
     context = {'formset': formset, 'helper': helper}
     return render(request, 'core/friends.html', context)
+
+
+
+@login_required
+@user_passes_test(profile_check, login_url='/profile')
+def outvote(request):
+    if request.method == 'POST':
+
+        form = OutvoteForm(request.POST, instance=request.user.volunteer)
+
+        if form.is_valid():
+            user = request.user
+
+            user.volunteer = form.save()
+
+            return redirect('dashboard')
+
+        # if a GET (or any other method) we'll create a blank form
+    else:
+        form = OutvoteForm(instance=request.user.volunteer)
+
+
+    context = {'form': form}
+    return render(request, 'core/outvote.html', context)
+
