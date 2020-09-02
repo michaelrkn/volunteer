@@ -21,7 +21,7 @@
         {% if request.user|user_has_phone %}
             <p>You have texted {{ pageOwner.volunteer.outvote_texts }} people in the WWAV campaign on Outvote.</p>
 
-            <p>Not working right? <a href="{% url 'outvote' %}">Check your phone number on file</a></p>
+            <p>Not working right? Syncing data from Outvote can take up to a day. <a href="{% url 'outvote' %}">Check your phone number on file</a></p>
 
         {% else %}
     <p><a href="{% url 'outvote' %}">Connect your Outvote Account</a></p>
