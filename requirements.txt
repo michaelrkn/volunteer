@@ -3,5 +3,5 @@ Django==3.1
 gunicorn==20.0.4
 psycopg2-binary==2.8.5
 whitenoise==5.2.0
-civis=1.14.2
+civis==1.14.2
 django-crispy-forms==1.9.2
