@@ -17,7 +17,7 @@ class SignUpForm(UserCreationForm):
 
         self.helper = FormHelper(self)
 
-        self.helper.layout.append(Submit('submit', 'Submit', css_class='btn-primary'))
+        self.helper.layout.append(Submit('submit', 'SIGN ME UP!', css_class='btn-primary'))
 
     class Meta:
         model = User

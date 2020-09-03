@@ -12,8 +12,8 @@
             </div>
 <div class="my-5">
                 {% if user.is_authenticated %}
-            <h4>Welcome {{ request.user.first_name }}</h4>
-            <p>Go to your <a href="{% url 'dashboard' %}">dashboard</a></p>
+            <h4>Welcome {{ request.user.first_name }}!</h4>
+            <a href="{% url 'dashboard' %}" class="button">Go to your dashboard</a>
                 {% else %}
                     <h4>Pledge to register 10 eligible voters for a chance to (virtually) hang out with Michelle Obama! Follow the easy steps below to get started:</h4>
             <ol>
