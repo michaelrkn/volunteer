@@ -13,3 +13,9 @@ input[type=email]:focus,input[type=password]:focus {
     background-color: #1f244e;
     color: #fff;
 }
+
+@media (min-width: 992px) {
+    .signup-form {
+        max-width:50%;
+    }
+}

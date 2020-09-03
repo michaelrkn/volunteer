@@ -91,7 +91,7 @@ def profile(request):
 
             user.volunteer = form.save()
 
-            return redirect('friends')
+            return redirect('dashboard')
 
         # if a GET (or any other method) we'll create a blank form
     else:
