@@ -23,7 +23,7 @@ class SignUpForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('first_name','last_name','zip_code','phone', 'can_text','email', 'password1', 'password2',)
+        fields = ('email', 'password1', 'password2','first_name','last_name','zip_code','phone', 'can_text',)
 
 
 class VolunteerForm(ModelForm):
