@@ -8,7 +8,7 @@ from django.conf import settings
 class Volunteer(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
-    slug=models.SlugField(max_length=30,unique=True,null=True,error_messages={'unique':"This URL is already taken"},verbose_name='Your Custom URL',help_text="Choose a custom URL to make your page your own! Remember - once you choose a URL, you won’t be able to change it later. Make it fun: use your Instagram, Twitter, MySpace, or even AOL username!")
+    slug=models.SlugField(max_length=30,unique=True,null=True,error_messages={'unique':"This URL is already taken"},verbose_name='Your Custom URL',help_text="Choose a custom URL (Example: janedoe89) to make your page your own! Remember - once you choose a URL, you won’t be able to change it later. Make it fun: use your Instagram, Twitter, MySpace, or even AOL username!")
     reg=models.IntegerField(default=0)
     outvote_texts = models.IntegerField(default=0)
 
