@@ -26,7 +26,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['wwav-volunteer.herokuapp.com','volunteer.whenweallvote.org','volunteer']
+ALLOWED_HOSTS = ['wwav-volunteer.herokuapp.com','volunteer']
 
 
 # Application definition
