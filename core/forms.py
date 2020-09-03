@@ -5,9 +5,11 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 
 from .models import Volunteer, Friend
+from django.conf import settings
 
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from core.models import User
 
 
 class SignUpForm(UserCreationForm):
@@ -21,8 +23,7 @@ class SignUpForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name',
-                  'email', 'username', 'password1', 'password2',)
+        fields = ('first_name','last_name','zip_code','phone', 'can_text','email', 'password1', 'password2',)
 
 
 class VolunteerForm(ModelForm):
@@ -40,7 +41,7 @@ class VolunteerForm(ModelForm):
         #         'unique': "This URL is taken",
         #     }
         # }
-        fields = ['slug','zip_code','phone','can_text']
+        fields = ['slug']
 
 class FriendForm(ModelForm):
     def __init__(self, *args, **kwargs):
