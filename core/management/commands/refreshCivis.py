@@ -9,13 +9,13 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         table = civis.io.read_civis_sql(
-            "select tracking_id, sum(case when status in ('Step 1','Step 2','Step 3','Step 4') then 1 else 0 end), sum(case when status='Complete' then 1 else 0 end) from wwav_rtv.rtv_cleaned where tracking_id like 'Mob_2020_VR_MO-Contest_%' group by 1",
+            "select tracking_id, sum(case when status in ('Step 1','Step 2','Step 3','Step 4') then 1 else 0 end), sum(case when status='Complete' then 1 else 0 end) from wwav_rtv.rtv_cleaned where tracking_id like '%Mob_2020_VR_MO-Contest_%' group by 1",
             "TMC")
         self.stdout.write(self.style.SUCCESS('Made RTV query'))
         for row in table[1:]:
             try:
                 #print(row[0][row[0].startswith('msv-custom-') and len('msv-custom-'):])
-                v = Volunteer.objects.get(slug=row[0][row[0].startswith('Mob_2020_VR_MO-Contest_') and len('Mob_2020_VR_MO-Contest_'):])
+                v = Volunteer.objects.get(slug=row[0].split('Mob_2020_VR_MO-Contest_',1)[-1])
                 v.reg = row[2]
                 v.reg_started=row[1]
                 # print(v)

@@ -14,7 +14,12 @@
             <script type="text/javascript">
                 RtvIframe.init({
                   partner: 37284,
-                  tracking: "Mob_2020_VR_MO-Contest_{{ pageOwner.volunteer.slug }}",
+                    {% if pageOwner.volunteer.tracking == "ads" %}
+                    tracking: "ads_Mob_2020_VR_MO-Contest_{{ pageOwner.volunteer.slug }}",
+                    {% else %}
+                    tracking: "Mob_2020_VR_MO-Contest_{{ pageOwner.volunteer.slug }}",
+                    {% endif %}
+
                 })
             </script>
         </main>
