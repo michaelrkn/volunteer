@@ -41,7 +41,7 @@ var msg = document.querySelector('.copymsg');
   window.getSelection().removeAllRanges();
 });</script>
 
-            <p class="my-4">You have currently registered {{ pageOwner.volunteer.reg }}/10 voters. Registration data may take a full day to update.</p>
+            <p class="my-4">You have currently registered {{ pageOwner.volunteer.reg }}/10 voters. {{ pageOwner.volunteer.reg_started }} others have started but haven't completed the process yet. Registration data may take a full day to update.</p>
             <div class="progress" style="height: 2em;">
               <div class="progress-bar" role="progressbar" style="width: {{ pageOwner.volunteer.reg }}0%; background-color: #ff2846;font-size: 1.5em;font-weight: bold;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ pageOwner.volunteer.reg }}</div>
             </div>
