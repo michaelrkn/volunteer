@@ -12,6 +12,7 @@ class Volunteer(models.Model):
     reg=models.IntegerField(default=0)
     reg_started = models.IntegerField(default=0)
     outvote_texts = models.IntegerField(default=0)
+    tracking=models.CharField(blank=True,max_length=30)
 
     # zip_regex = RegexValidator(regex=r'^\d{5}$',
     #                              message="ZIP Code must be 5 digits and entered in the format: '12345'.")
