@@ -5,14 +5,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <meta property="og:title" content="When We All Vote">
-    <meta property="og:description" content="Pledge to help 10 friends or family members register to vote and you could win a chance to (virtually) hang out with Michelle Obama.">
-    <meta property="og:image" content="{% static 'core/mo.png' %}">
-    <meta property="og:url" content="{% url 'index' %}">
-    <meta name="twitter:card" content="summary_large_image">
-
     <title>When We All Vote</title>
+
+    <!-- Search Engine -->
+    <meta name="description" content="Pledge to help 10 friends or family members register to vote and you could win a chance to (virtually) hang out with Michelle Obama.">
+    <meta name="image" content="{{request.get_host}}{% static 'core/mo.png' %}">
+    <!-- Schema.org for Google -->
+    <meta itemprop="name" content="Hang Out With Michelle Obama Contest">
+    <meta itemprop="description" content="Pledge to help 10 friends or family members register to vote and you could win a chance to (virtually) hang out with Michelle Obama.">
+    <meta itemprop="image" content="{{request.get_host}}{% static 'core/mo.png' %}">
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Hang Out With Michelle Obama Contest">
+    <meta name="twitter:description" content="Pledge to help 10 friends or family members register to vote and you could win a chance to (virtually) hang out with Michelle Obama.">
+    <meta name="twitter:site" content="@whenweallvote">
+    <meta name="twitter:player" content="{{request.get_host}}{% static 'core/mo.png' %}">
+    <!-- Open Graph general (Facebook, Pinterest & Google+) -->
+    <meta name="og:title" content="Hang Out With Michelle Obama Contest">
+    <meta name="og:description" content="Pledge to help 10 friends or family members register to vote and you could win a chance to (virtually) hang out with Michelle Obama.">
+    <meta name="og:image" content="{{request.get_host}}{% static 'core/mo.png' %}">
+    <meta name="og:url" content="{{request.get_host}}">
+    <meta name="og:site_name" content="Hang Out With Michelle Obama Contest">
+    <meta name="fb:admins" content="350316025478383">
+    <meta name="og:type" content="website">
+
+
     <link rel="icon" type="image/x-icon" href="https://www.whenweallvote.org/wp-content/themes/whenwevote/favicon.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
