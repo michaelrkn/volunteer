@@ -5,6 +5,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta property="og:title" content="When We All Vote">
+    <meta property="og:description" content="Pledge to help 10 friends or family members register to vote and you could win a chance to (virtually) hang out with Michelle Obama.">
+    <meta property="og:image" content="{% static 'core/mo.png' %}">
+    <meta property="og:url" content="{% url 'index' %}">
+    <meta name="twitter:card" content="summary_large_image">
+
     <title>When We All Vote</title>
     <link rel="icon" type="image/x-icon" href="https://www.whenweallvote.org/wp-content/themes/whenwevote/favicon.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
@@ -14,7 +21,7 @@
 
 
     <link rel="stylesheet" type="text/css" href="{% static 'core/style.css' %}">
-    <link rel="shortcut icon" href="{% static 'core/favicon.ico' %}"/>
+{#    <link rel="shortcut icon" href="{% static 'core/favicon.ico' %}"/>#}
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
             crossorigin="anonymous"></script>
