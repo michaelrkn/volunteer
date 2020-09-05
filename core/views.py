@@ -2,6 +2,7 @@ from crispy_forms.layout import Submit
 from django.forms import modelformset_factory
 from django.shortcuts import render
 from django.urls import reverse
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 from django.core.exceptions import ValidationError
@@ -49,7 +50,10 @@ def dashboard(request):
 
 
 def page(request, urlSlug):
-    pageOwner = Volunteer.objects.get(slug=urlSlug)
+
+    # pageOwner = Volunteer.objects.get(slug=urlSlug)
+    pageOwner=get_object_or_404(Volunteer, slug=urlSlug)
+
     # table = civis.io.read_civis_sql("select tracking_id, count(*) from wwav_rtv.rtv_cleaned where lower(tracking_id) = 'msv-custom-"+urlSlug+"' and status not in ('Rejected','Under 18') group by 1", "TMC")
     # print(table)
     # context = {'pageOwner':pageOwner.user,'reg': table[1][1]}
