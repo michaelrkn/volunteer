@@ -150,3 +150,5 @@ AUTH_USER_MODEL = 'core.User'
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SECURE_SSL_REDIRECT = True
+
+ADMINS=[('Jesse', 'jesse@whenweallvote.org')]
