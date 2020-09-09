@@ -1,5 +1,20 @@
 {% extends "core/base.html" %}
 {% load static %}
+
+
+{% block meta %}
+    <meta itemprop="name" content="Register to Vote with {{ pageOwner.first_name }}">
+    <meta name="twitter:title" content="Register to Vote with {{ pageOwner.first_name }}">
+    <meta name="og:title" content="Register to Vote with {{ pageOwner.first_name }}">
+    <meta name="og:site_name" content="Register to Vote with {{ pageOwner.first_name }}">
+
+    <meta name="og:image" content="{{ request.scheme }}://{{request.get_host}}{% static 'core/register.jpg' %}">
+    <meta name="twitter:player" content="{{ request.scheme }}://{{request.get_host}}{% static 'core/register.jpg' %}">
+    <meta itemprop="image" content="{{ request.scheme }}://{{request.get_host}}{% static 'core/register.jpg' %}">
+    <meta name="image" content="{{ request.scheme }}://{{request.get_host}}{% static 'core/register.jpg' %}">
+{% endblock %}
+
+
 {% block content %}
 
     <div class="container">

@@ -9,25 +9,29 @@
 
     <!-- Search Engine -->
     <meta name="description" content="Pledge to help 10 friends or family members register to vote and you could win a chance to (virtually) hang out with Michelle Obama.">
-    <meta name="image" content="{{ request.scheme }}://{{request.get_host}}{% static 'core/mo.png' %}">
     <!-- Schema.org for Google -->
-    <meta itemprop="name" content="Hang Out With Michelle Obama Contest">
     <meta itemprop="description" content="Pledge to help 10 friends or family members register to vote and you could win a chance to (virtually) hang out with Michelle Obama.">
-    <meta itemprop="image" content="{{ request.scheme }}://{{request.get_host}}{% static 'core/mo.png' %}">
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Hang Out With Michelle Obama Contest">
     <meta name="twitter:description" content="Pledge to help 10 friends or family members register to vote and you could win a chance to (virtually) hang out with Michelle Obama.">
     <meta name="twitter:site" content="@whenweallvote">
-    <meta name="twitter:player" content="{{ request.scheme }}://{{request.get_host}}{% static 'core/mo.png' %}">
     <!-- Open Graph general (Facebook, Pinterest & Google+) -->
-    <meta name="og:title" content="Hang Out With Michelle Obama Contest">
     <meta name="og:description" content="Pledge to help 10 friends or family members register to vote and you could win a chance to (virtually) hang out with Michelle Obama.">
-    <meta name="og:image" content="{{ request.scheme }}://{{request.get_host}}{% static 'core/mo.png' %}">
     <meta name="og:url" content="{{ request.scheme }}://{{request.get_host}}">
-    <meta name="og:site_name" content="Hang Out With Michelle Obama Contest">
     <meta name="fb:admins" content="350316025478383">
     <meta name="og:type" content="website">
+
+    {% block meta %}
+    <meta itemprop="name" content="Hang Out With Michelle Obama Contest">
+    <meta name="twitter:title" content="Hang Out With Michelle Obama Contest">
+    <meta name="og:title" content="Hang Out With Michelle Obama Contest">
+    <meta name="og:site_name" content="Hang Out With Michelle Obama Contest">
+
+    <meta name="og:image" content="{{ request.scheme }}://{{request.get_host}}{% static 'core/mo.png' %}">
+    <meta name="twitter:player" content="{{ request.scheme }}://{{request.get_host}}{% static 'core/mo.png' %}">
+    <meta itemprop="image" content="{{ request.scheme }}://{{request.get_host}}{% static 'core/mo.png' %}">
+    <meta name="image" content="{{ request.scheme }}://{{request.get_host}}{% static 'core/mo.png' %}">
+    {% endblock %}
 
 
     <link rel="icon" type="image/x-icon" href="https://www.whenweallvote.org/wp-content/themes/whenwevote/favicon.png">
