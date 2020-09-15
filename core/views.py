@@ -17,7 +17,7 @@ from django.utils import timezone
 from django.core.mail import EmailMessage, EmailMultiAlternatives
 
 from .forms import VolunteerForm
-from .models import Volunteer, Friend
+from .models import Volunteer, Friend, Referrer
 
 # Create your views here.
 from django.http import HttpResponse
@@ -84,6 +84,34 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'core/signup.html', {'form': form})
+
+
+
+
+def join(request, referrer):
+
+    # pageOwner = Volunteer.objects.get(slug=urlSlug)
+    ref=get_object_or_404(Referrer, slug=referrer)
+
+
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+
+            user.volunteer.tracking=request.GET.get('utm_source', '')
+            user.volunteer.referrer=ref
+            user.save()
+            email = form.cleaned_data.get('email')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(email=email, password=password)
+            login(request, user)
+            return redirect('profile')
+    else:
+        form = SignUpForm()
+    return render(request, 'core/join.html', {'form': form,'ref':ref})
+
+
 
 
 @login_required

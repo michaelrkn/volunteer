@@ -1,0 +1,51 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+
+    <div class="container">
+        <main>
+            <div class="text-center">
+{#            <h1>Volunteer Command Center</h1>#}
+
+
+            </div>
+<div class="my-5">
+                {% if user.is_authenticated %}
+            <h4>Welcome {{ request.user.first_name }}</h4>
+            <p>Go to your <a href="{% url 'dashboard' %}">dashboard</a></p>
+                {% else %}
+
+                    {% if ref.image %}
+                    <img src="{{ ref.image.url }}">
+                    {% endif %}
+
+
+                    <h4 class="my-4">{{ ref.paragraph }}</h4>
+
+
+                    <ol>
+                        <li>Sign up below with a username and password so you can check back on our site and see who actually registered to vote! </li>
+                        <li>After you sign up, you'll get your own voter registration link.</li>
+                        <li>Then text or DM 10 friends the link! These should be people who may need to check their voter registration.</li>
+                        <li>Check back on this site to see which of your friends check their registration.</li>
+                    </ol>
+
+                    <div class="signup-form">
+            {% crispy form %}
+
+                </div>
+
+                {% endif %}
+                </div>
+
+
+        </main>
+    </div>
+
+
+
+{% endblock content %}
+

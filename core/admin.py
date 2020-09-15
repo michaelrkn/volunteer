@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 # from django.contrib.auth.models import User
 
-from core.models import Volunteer, Friend
+from core.models import Volunteer, Friend, Referrer
 from core.models import User # as CustomUser
 from core.forms import SignUpForm
 
@@ -155,3 +155,4 @@ class ProfileAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Friend)
+admin.site.register(Referrer)
