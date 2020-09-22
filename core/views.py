@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404
 # Create your views here.
 from django.core.exceptions import ValidationError
 
-from .forms import SignUpForm, FriendForm, FriendFormSetHelper
+from .forms import SignUpForm, FriendForm, FriendFormSetHelper, UpdateForm, ActblueForm
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
@@ -17,7 +17,7 @@ from django.utils import timezone
 from django.core.mail import EmailMessage, EmailMultiAlternatives
 
 from .forms import VolunteerForm
-from .models import Volunteer, Friend, Referrer
+from .models import Volunteer, Friend, Referrer, Priority
 
 # Create your views here.
 from django.http import HttpResponse
@@ -25,7 +25,7 @@ import civis
 
 
 def index(request):
-    context = {}
+    context = {'priorities': Priority.objects.order_by('rank')}
     return render(request, 'core/index.html', context)
 
 
@@ -45,14 +45,24 @@ def profile_check(user):
 @user_passes_test(profile_check, login_url='/profile')
 def dashboard(request):
     # context = {'result': 'heres your link' + request.user.volunteer.slug+table[1][1]}
-    context = {'pageOwner': request.user, 'pct': min(100, request.user.volunteer.reg * 10)}
+    context = {'pageOwner': request.user, 'pct': min(100, request.user.volunteer.reg * 10),
+               'outvote_leaderboard': Volunteer.objects.order_by('-outvote_texts')[:10],'rank':Volunteer.objects.filter(outvote_texts__gte=request.user.volunteer.outvote_texts).count()}
     return render(request, 'core/dashboard.html', context)
 
 
-def page(request, urlSlug):
+@login_required
+@user_passes_test(profile_check, login_url='/profile')
+def actions(request):
+    # context = {'result': 'heres your link' + request.user.volunteer.slug+table[1][1]}
+    context = {'pageOwner': request.user}
+    return render(request, 'core/actions.html', context)
 
+
+
+
+def page(request, urlSlug):
     # pageOwner = Volunteer.objects.get(slug=urlSlug)
-    pageOwner=get_object_or_404(Volunteer, slug=urlSlug)
+    pageOwner = get_object_or_404(Volunteer, slug=urlSlug)
 
     # table = civis.io.read_civis_sql("select tracking_id, count(*) from wwav_rtv.rtv_cleaned where lower(tracking_id) = 'msv-custom-"+urlSlug+"' and status not in ('Rejected','Under 18') group by 1", "TMC")
     # print(table)
@@ -62,6 +72,8 @@ def page(request, urlSlug):
 
 
 def signup(request):
+    if request.user.is_authenticated:
+        return redirect('index')
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -73,8 +85,8 @@ def signup(request):
             # user.donator.last_name = form.cleaned_data.get('last_name')
             # user.donator.email = form.cleaned_data.get('email')
             # user.save()
-            #print('tracking: '+request.GET.get('source', ''))
-            user.volunteer.tracking=request.GET.get('utm_source', '')
+            # print('tracking: '+request.GET.get('source', ''))
+            user.volunteer.tracking = request.GET.get('utm_source', '')
             user.save()
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password1')
@@ -86,21 +98,19 @@ def signup(request):
     return render(request, 'core/signup.html', {'form': form})
 
 
-
-
 def join(request, referrer):
-
+    if request.user.is_authenticated:
+        return redirect('index')
     # pageOwner = Volunteer.objects.get(slug=urlSlug)
-    ref=get_object_or_404(Referrer, slug=referrer)
-
+    ref = get_object_or_404(Referrer, slug=referrer)
 
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
 
-            user.volunteer.tracking=request.GET.get('utm_source', '')
-            user.volunteer.referrer=ref
+            user.volunteer.tracking = request.GET.get('utm_source', '')
+            user.volunteer.referrer = ref
             user.save()
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password1')
@@ -109,9 +119,7 @@ def join(request, referrer):
             return redirect('profile')
     else:
         form = SignUpForm()
-    return render(request, 'core/join.html', {'form': form,'ref':ref})
-
-
+    return render(request, 'core/join.html', {'form': form, 'ref': ref})
 
 
 @login_required
@@ -126,14 +134,13 @@ def profile(request):
 
             user.volunteer = form.save()
 
-
-            subject, from_email= 'Here’s your custom voter registration link', 'When We All Vote <noreply@whenweallvote.org>'
+            subject, from_email = 'Here’s your custom voter registration link', 'When We All Vote <noreply@whenweallvote.org>'
             text_content = """Send your very own voter registration link to 10 friends who you think needs to check their voter 
             registration. Think about everyone you could reach out to -- friends, family, coworkers, 
             people in your faith community or neighbors!\n\nCopy and paste the message below and text or DM 10 
             friends right now: \n\nHey! We're getting so close to this election. I wanted to make sure you've 
             double checked your voter registration -- it'll take 7 minutes tops! """ \
-                           + request.build_absolute_uri(reverse('page',args=[request.user.volunteer.slug])) \
+                           + request.build_absolute_uri(reverse('page', args=[request.user.volunteer.slug])) \
                            + """\n\nDon't forget to follow up with them to make sure they did it. You can use our tool to check 
                            and see how close you are to registering all 10 friends: """ \
                            + request.build_absolute_uri(reverse('dashboard')) \
@@ -146,11 +153,12 @@ def profile(request):
             people in your faith community or neighbors!<br><br>Copy and paste the message below and text or DM 10 
             friends right now: <br><br><em>Hey! We're getting so close to this election. I wanted to make sure you've 
             double checked your voter registration&mdash;it'll take 7 minutes tops! <a href='""" \
-                           + request.build_absolute_uri(reverse('page',args=[request.user.volunteer.slug])) \
-                           + "'>"+request.build_absolute_uri(reverse('page',args=[request.user.volunteer.slug])) \
+                           + request.build_absolute_uri(reverse('page', args=[request.user.volunteer.slug])) \
+                           + "'>" + request.build_absolute_uri(reverse('page', args=[request.user.volunteer.slug])) \
                            + """</a></em><br><br>Don't forget to follow up with them to make sure they did it. You can use our tool 
                            to check and see how close you are to registering all 10 friends: <a href='""" \
-                           + request.build_absolute_uri(reverse('dashboard')) + "'>" + request.build_absolute_uri(reverse('dashboard')) \
+                           + request.build_absolute_uri(reverse('dashboard')) + "'>" + request.build_absolute_uri(
+                reverse('dashboard')) \
                            + """</a><br><br>We know your friends and family are much more likely to understand why voting is important
                             when it comes from someone they trust, like you. The work you do with us now will empower voters 
                             across the country this year and beyond.<br><br>Thanks!<br><br>When We All Vote"""
@@ -158,7 +166,6 @@ def profile(request):
             msg = EmailMultiAlternatives(subject, text_content, from_email, [user.email])
             msg.attach_alternative(html_content, "text/html")
             msg.send(fail_silently=False)
-
 
             return redirect('dashboard')
 
@@ -203,26 +210,31 @@ def friends(request):
     context = {'formset': formset, 'helper': helper}
     return render(request, 'core/friends.html', context)
 
-#
-# @login_required
-# @user_passes_test(profile_check, login_url='/profile')
-# def outvote(request):
-#     if request.method == 'POST':
-#
-#         form = OutvoteForm(request.POST, instance=request.user.volunteer)
-#
-#         if form.is_valid():
-#             user = request.user
-#
-#             user.volunteer = form.save()
-#
-#             return redirect('dashboard')
-#
-#         # if a GET (or any other method) we'll create a blank form
-#     else:
-#         form = OutvoteForm(instance=request.user.volunteer)
-#
-#
-#     context = {'form': form}
-#     return render(request, 'core/outvote.html', context)
-#
+
+@login_required
+@user_passes_test(profile_check, login_url='/profile')
+def update(request):
+    if request.method == 'POST':
+        form = UpdateForm(request.POST, instance=request.user)
+        if form.is_valid():
+            user = form.save()
+
+            return redirect('dashboard')
+    else:
+        form = UpdateForm(instance=request.user)
+    return render(request, 'core/update.html', {'form': form})
+
+
+
+@login_required
+@user_passes_test(profile_check, login_url='/profile')
+def actblue(request):
+    if request.method == 'POST':
+        form = ActblueForm(request.POST, instance=request.user.volunteer)
+        if form.is_valid():
+            user = form.save()
+
+            return redirect('dashboard')
+    else:
+        form = ActblueForm(instance=request.user.volunteer)
+    return render(request, 'core/actblue.html', {'form': form})

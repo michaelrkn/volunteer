@@ -5,59 +5,129 @@
 
     <div class="container">
         <main>
-            <h3>Now, copy and paste the message below & text or DM 10 of your friends!</h3>
-{#            <p>Here's your custom voter registration page: <a href="{% url 'page' pageOwner.volunteer.slug %}">{{request.get_host}}{% url 'page' pageOwner.volunteer.slug %}</a></p>#}
+            <h1>Your Dashboard</h1>
+            <hr>
+            <h3>Your Custom Voter Registration Link</h3>
 
-
-            <p>Send your voter registration link to anyone in your network who you think needs to check their voter registration! Think about everyone you could reach out to&mdash;friends, family, coworkers, people in your faith community or neighbors!</p>
-
-            <p>Copy and paste this message to reach out to 10 of your friends in a DM or text:</p>
-            <div class="border rounded p-3 mb-2">
-                <p class="copy">Hey! We’re getting so close to this election. I wanted to make sure you've double checked your voter registration — it’ll take 7 minutes tops! <a href="{% url 'page' pageOwner.volunteer.slug %}">{{request.get_host}}{% url 'page' pageOwner.volunteer.slug %}</a></p>
-            </div>
-            <div>
-                <button class="copybtn button small mb-0">Copy Text</button>
-                <span class="copymsg"></span>
-            </div>
-            <script>var copyEmailBtn = document.querySelector('.copybtn');
-copyEmailBtn.addEventListener('click', function(event) {
-  // Select the email link anchor text
-  var text = document.querySelector('.copy');
-  var range = document.createRange();
-  range.selectNode(text);
-  window.getSelection().addRange(range);
-var msg = document.querySelector('.copymsg');
-  try {
-    // Now that we've selected the anchor text, execute the copy command
-    var successful = document.execCommand('copy');
-    var message = successful ? 'Copied!' : 'Something went wrong, try copying manually';
-    msg.innerHTML=message;
-  } catch(err) {
-    msg.innerHTML='Something went wrong, try copying manually';
-  }
-
-  // Remove the selections - NOTE: Should use
-  // removeRange(range) when it is supported
-  window.getSelection().removeAllRanges();
-});</script>
-
-            <p class="my-4">You have currently registered {{ pageOwner.volunteer.reg }}/10 voters. {{ pageOwner.volunteer.reg_started }} others have started but haven't completed the process yet. Registration data may take a full day to update.</p>
+            <p class="my-4 lead">You have currently registered <strong>{{ pageOwner.volunteer.reg }}/10</strong>
+                voters.
+                Registration data may take a full day to update.</p>
             <div class="progress" style="height: 2em;">
-              <div class="progress-bar" role="progressbar" style="width: {{ pageOwner.volunteer.reg }}0%; background-color: #ff2846;font-size: 1.5em;font-weight: bold;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ pageOwner.volunteer.reg }}</div>
+                <div class="progress-bar" role="progressbar"
+                     style="width: {{ pageOwner.volunteer.reg }}0%; background-color: #ff2846;font-size: 1.5em;font-weight: bold;"
+                     aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ pageOwner.volunteer.reg }}</div>
             </div>
-{#            <p><a href="https://www.facebook.com/sharer/sharer.php?u=https://myschoolvotes.whenweallvote.org/{{ pageOwner.volunteer.slug }}&amp;quote={{ pageOwner.first_name }}%20has%20registered%202%20voters%20so%20far! #MySchoolVotes">Share on Facebook</a></p>#}
-{#            <p><a href="https://twitter.com/intent/tweet?text={{ pageOwner.first_name }}%20has%20registered%202%20voters%20so%20far!%20%23MySchoolVotes%0Ahttps%3A%2F%2Fmyschoolvotes.whenweallvote.org%2F{{ pageOwner.volunteer.slug }}">Share on Twitter</a></p>#}
+            <a href="{% url 'actions' %}" class="button text-decoration-none mt-5">Share Your Link</a>
 
-{##}
-{#        <h3>Outvote</h3>#}
-{#        {% if request.user|user_has_phone %}#}
-{#            <p>You have texted {{ pageOwner.volunteer.outvote_texts }} people in the WWAV campaign on Outvote.</p>#}
-{##}
-{#            <p>Not working right? Syncing data from Outvote can take up to a day. <a href="{% url 'outvote' %}">Check your phone number on file</a></p>#}
-{##}
-{#        {% else %}#}
-{#    <p><a href="{% url 'outvote' %}">Connect your Outvote Account</a></p>#}
-{#        {% endif %}#}
+            {#            <p><a href="https://www.facebook.com/sharer/sharer.php?u=https://myschoolvotes.whenweallvote.org/{{ pageOwner.volunteer.slug }}&amp;quote={{ pageOwner.first_name }}%20has%20registered%202%20voters%20so%20far! #MySchoolVotes">Share on Facebook</a></p>#}
+            {#            <p><a href="https://twitter.com/intent/tweet?text={{ pageOwner.first_name }}%20has%20registered%202%20voters%20so%20far!%20%23MySchoolVotes%0Ahttps%3A%2F%2Fmyschoolvotes.whenweallvote.org%2F{{ pageOwner.volunteer.slug }}">Share on Twitter</a></p>#}
+
+            <hr class="my-5">
+
+            <div class="row my-5">
+
+                <div class="col-md mb-5">
+                    <h1 class="mt-4">Outvote</h1>
+                    <p class="lead">You have sent <strong>{{ pageOwner.volunteer.outvote_texts }}</strong> texts so
+                        far in the WWAV
+                        campaign on Outvote!</p>
+                    <p>Syncing data from Outvote can take up to a day. Still not right?
+                        <a href="{% url 'update' %}" class="font-weight-bold">Check or update your account phone number.</a>
+                    </p>
+                    {% if pageOwner.volunteer.outvote_texts == 0 %}
+                        <p class="lead mt-5">Not involved with Outvote? </p>
+                        <a href="https://whenweallvote.org/texting/" target="_blank" class="button small">Join our
+                            texting team!</a>
+                    {% else %}
+                        <h3 class="mt-5">Invite Your Friends</h3>
+                        <a class="font-weight-bold text-decoration-none"
+                           href="https://twitter.com/intent/tweet?text=I%27ve%20sent%20{{ pageOwner.volunteer.outvote_texts }}%20texts%20so%20far%20with%20When%20We%20All%20Vote%21%20Join%20me%20at%20{{ request.get_host }}{% url 'signup' %}." target="_blank">
+                            <div class="border rounded p-2 mb-2 d-flex justify-content-start align-items-center">
+                                <i class="fab fa-twitter icon-fa fa-2x ml-4 mr-5"><span
+                                        class="sr-only">Twitter</span></i>
+                                Share your achievement on Twitter!
+
+                            </div>
+                        </a>
+                        <a class="font-weight-bold text-decoration-none"
+                           href="https://www.facebook.com/sharer/sharer.php?u={{ request.get_host }}{% url 'signup' %}&quote=I%27ve%20sent%20{{ pageOwner.volunteer.outvote_texts }}%20texts%20so%20far%20with%20When%20We%20All%20Vote%21%20Join%20me%20at%20{{ request.get_host }}{% url 'signup' %}." target="_blank">
+                            <div class="border rounded p-2 mb-2 d-flex justify-content-start align-items-center">
+
+                                <i class="fab fa-facebook icon-fa fa-2x ml-4 mr-5"><span class="sr-only">Facebook</span></i>
+                                Share your achievement on Facebook!
+                            </div>
+
+                        </a>
+
+                    {% endif %}
+
+                </div>
+                <div class="col-md">
+
+                    <h3>Leaderboard</h3>
+                    <table class="table table-sm">
+                        <thead>
+                        <tr>
+                            <th scope="col">Rank</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Texts</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for row in outvote_leaderboard %}
+                            <tr {% if request.user.volunteer == row %}class="table-active"{% endif %}>
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <td>{{ row.user.first_name }} <span class="badge badge-pill badge-primary"
+                                                                    style="background-color:#ff2846;">{{ row.user|get_tier:'name' }}</span>
+                                </td>
+                                <td>{{ row.outvote_texts }}</td>
+                            </tr>
+                        {% endfor %}
+                        {% if request.user.volunteer not in outvote_leaderboard %}
+                            <tr class="table-active">
+                                <th scope="row">{{ rank }}</th>
+                                <td>{{ request.user.first_name }} <span class="badge badge-pill badge-primary"
+                                                                        style="background-color:#ff2846;">{{ request.user|get_tier:'name' }}</span>
+                                </td>
+                                <td>{{ request.user.volunteer.outvote_texts }}</td>
+                            </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+            <hr class="my-5">
+            <h1>Status</h1>
+            <p class="lead">
+                Your current volunteer level: <strong>{{ request.user|get_tier:'name' }}</strong>
+            </p>
+            <p class="lead">Send more texts to get to the next level!</p>
+            <p class="text-right lead">Next Goal: <strong>{{ request.user|get_tier:'goal' }}</strong></p>
+
+            <div class="progress" style="height: 2em;">
+                <div class="progress-bar" role="progressbar"
+                     style="width: {{ request.user|get_tier_progress }}%; background-color: #ff2846;font-size: 1.5em;font-weight: bold;"
+                     aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ request.user|get_tier_progress }}%
+                </div>
+            </div>
+            <hr class="my-5">
+            <h1 class="my-4">ActBlue</h1>
+            <a href="https://secure.actblue.com/donate/when-we-all-vote?refcode=vcc" class="button text-decoration-none" target="_blank">Donate to WWAV</a>
+
+            {% if request.user.volunteer.actblue_email %}
+                <p class="lead" style="font-size:1.5em;">Your total donations to When We All Vote: </p>
+                <h1 class="text-center display-2"><strong>${{ request.user.volunteer.actblue_donations }}</strong></h1>
+                <p>Syncing data from ActBlue can take up to a day. Still not right?
+                        <a href="{% url 'actblue' %}" class="font-weight-bold">Check or update your ActBlue email.</a>
+                    </p>
+            {% else %}
+                <a href="{% url 'actblue' %}" class="font-weight-bold button text-decoration-none">Connect your ActBlue Account</a>
+
+            {% endif %}
+
+
+
 
         </main>
     </div>

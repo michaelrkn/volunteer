@@ -1,0 +1,117 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% load userChecks %}
+{% block content %}
+
+    <div class="container">
+        <main>
+            <h1 class="my-4">Voter Registration</h1>
+            <h3>Copy and paste the message below & text or DM 10 of your friends!</h3>
+            {#            <p>Here's your custom voter registration page: <a href="{% url 'page' pageOwner.volunteer.slug %}">{{request.get_host}}{% url 'page' pageOwner.volunteer.slug %}</a></p>#}
+
+
+            <p>Send your voter registration link to anyone in your network who you think needs to check their voter
+                registration! Think about everyone you could reach out to&mdash;friends, family, coworkers, people in
+                your faith community or neighbors!</p>
+
+            <p>Copy and paste this message to reach out to 10 of your friends in a DM or text:</p>
+            <div class="border rounded p-3 mb-2">
+                <p class="copy-vr">Hey! We’re getting so close to this election. I wanted to make sure you've double
+                    checked your voter registration — it’ll take 7 minutes tops! <a
+                            href="{% url 'page' pageOwner.volunteer.slug %}" target="_blank" class="font-weight-bold">
+                        {{ request.get_host }}{% url 'page' pageOwner.volunteer.slug %}</a></p>
+            </div>
+            <div>
+
+                <a class="button small mb-0 text-decoration-none"
+                   href="https://twitter.com/intent/tweet?text=I%27ve%20registered%20{{ pageOwner.volunteer.reg }}%20people%20to%20vote%20so%20far%20with%20When%20We%20All%20Vote%21%20Join%20me%20at%20{{ request.get_host }}{% url 'page' pageOwner.volunteer.slug %}." target="_blank">
+                    Share on Twitter
+                </a>
+                <a class="button small mb-0 text-decoration-none"
+                   href="https://www.facebook.com/sharer/sharer.php?u={{ request.get_host }}{% url 'page' pageOwner.volunteer.slug %}&quote=I%27ve%20registered%20{{ pageOwner.volunteer.reg }}%20people%20to%20vote%20so%20far%20with%20When%20We%20All%20Vote%21%20Join%20me%20at%20{{ request.get_host }}{% url 'page' pageOwner.volunteer.slug %}." target="_blank">
+                    Share on Facebook
+                </a>
+                <button class="copybtn-vr button small mb-0">Copy Text</button>
+                <span class="copymsg-vr"></span>
+            </div>
+            <script>var copyEmailBtn = document.querySelector('.copybtn-vr');
+            copyEmailBtn.addEventListener('click', function (event) {
+                // Select the email link anchor text
+                var text = document.querySelector('.copy-vr');
+                var range = document.createRange();
+                range.selectNode(text);
+                window.getSelection().addRange(range);
+                var msg = document.querySelector('.copymsg-vr');
+                try {
+                    // Now that we've selected the anchor text, execute the copy command
+                    var successful = document.execCommand('copy');
+                    var message = successful ? 'Copied!' : 'Something went wrong, try copying manually';
+                    msg.innerHTML = message;
+                } catch (err) {
+                    msg.innerHTML = 'Something went wrong, try copying manually';
+                }
+
+                // Remove the selections - NOTE: Should use
+                // removeRange(range) when it is supported
+                window.getSelection().removeAllRanges();
+            });</script>
+
+
+
+
+            <hr class="my-5">
+            <h1 class="my-4">Vote by Mail</h1>
+            <h3>Copy and paste the message below & text or DM 10 of your friends!</h3>
+            {#            <p>Here's your custom voter registration page: <a href="{% url 'page' pageOwner.volunteer.slug %}">{{request.get_host}}{% url 'page' pageOwner.volunteer.slug %}</a></p>#}
+
+
+            <p>Send your vote by mail link to anyone in your network who you think should request a ballot! Think about everyone you could reach out to&mdash;friends, family, coworkers, people in
+                your faith community or neighbors!</p>
+
+            <p>Copy and paste this message to reach out to 10 of your friends in a DM or text:</p>
+            <div class="border rounded p-3 mb-2">
+                <p class="copy-vbm">Hey! We’re getting so close to this election. I wanted to make sure you've requested a vote by mail ballot — it’ll take 5 minutes tops! <a
+                            href="https://whenweallvote.org/vbm/?utm_source={{ pageOwner.volunteer.slug }}&utm_medium=sms&utm_campaign=vcc_vbm" target="_blank" class="font-weight-bold">
+                        whenweallvote.org/vbm/?utm_source={{ pageOwner.volunteer.slug }}&utm_medium=sms&utm_campaign=vcc_vbm</a></p>
+            </div>
+            <div>
+
+                <a class="button small mb-0 text-decoration-none"
+                   href="https://twitter.com/intent/tweet?text=The%20deadline%20to%20request%20a%20Vote%20by%20Mail%20ballot%20is%20coming%20up%20soon%21%20Request%20one%20at%20whenweallvote.org/vbm/?utm_source={{ pageOwner.volunteer.slug }}%26utm_medium=twitter%26utm_campaign=vcc_vbm" target="_blank">
+                    Share on Twitter
+                </a>
+                <a class="button small mb-0 text-decoration-none"
+                   href="https://www.facebook.com/sharer/sharer.php?u=whenweallvote.org/vbm/?utm_source={{ pageOwner.volunteer.slug }}%26utm_medium=fb%26utm_campaign=vcc_vbm&quote=The%20deadline%20to%20request%20a%20Vote%20by%20Mail%20ballot%20is%20coming%20up%20soon%21%20Request%20one%20at%20whenweallvote.org/vbm/?utm_source={{ pageOwner.volunteer.slug }}%26utm_medium=fb%26utm_campaign=vcc_vbm" target="_blank">
+                    Share on Facebook
+                </a>
+                <button class="copybtn-vbm button small mb-0">Copy Text</button>
+                <span class="copymsg-vbm"></span>
+            </div>
+            <script>var copyEmailBtn = document.querySelector('.copybtn-vbm');
+            copyEmailBtn.addEventListener('click', function (event) {
+                // Select the email link anchor text
+                var text = document.querySelector('.copy-vbm');
+                var range = document.createRange();
+                range.selectNode(text);
+                window.getSelection().addRange(range);
+                var msg = document.querySelector('.copymsg-vbm');
+                try {
+                    // Now that we've selected the anchor text, execute the copy command
+                    var successful = document.execCommand('copy');
+                    var message = successful ? 'Copied!' : 'Something went wrong, try copying manually';
+                    msg.innerHTML = message;
+                } catch (err) {
+                    msg.innerHTML = 'Something went wrong, try copying manually';
+                }
+
+                // Remove the selections - NOTE: Should use
+                // removeRange(range) when it is supported
+                window.getSelection().removeAllRanges();
+            });</script>
+
+        </main>
+    </div>
+
+
+{% endblock content %}
+

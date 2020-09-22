@@ -8,3 +8,4 @@ django-crispy-forms==1.9.2
 boto3==1.14.60
 django-storages==1.10
 Pillow==7.2.0
+pandas==1.1.2

@@ -9,6 +9,8 @@ urlpatterns = [
     path('join/<str:referrer>', views.join, name='join'),
     path('dashboard', views.dashboard, name='dashboard'),
     path('friends', views.friends, name='friends'),
-    # path('outvote', views.outvote, name='outvote'),
+    path('update', views.update, name='update'),
+    path('actions', views.actions, name='actions'),
+    path('actblue', views.actblue, name='actblue'),
     path('page/<str:urlSlug>', views.page, name='page'),
 ]

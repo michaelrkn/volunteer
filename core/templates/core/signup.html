@@ -4,52 +4,38 @@
 {% block content %}
 
 
-    {#<form method="post">#}
-    {#  {% csrf_token %}#}
-    {#  {% for field in form %}#}
-    {#    <p>#}
-    {#      {{ field.label_tag }}<br>#}
-    {#      {{ field }}#}
-    {#      {% if field.help_text %}#}
-    {#        <small style="color: grey">{{ field.help_text }}</small>#}
-    {#      {% endif %}#}
-    {#      {% for error in field.errors %}#}
-    {#        <p style="color: red">{{ error }}</p>#}
-    {#      {% endfor %}#}
-    {#    </p>#}
-    {#  {% endfor %}#}
-    {#  <button type="submit">Sign up</button>#}
-    {#</form>#}
-
-
 
     <div class="container">
         <main>
-            <div class="text-center">
-{#            <h1>Volunteer Command Center</h1>#}
 
-
-            </div>
-<div class="my-5">
+            <div class="my-5">
                 {% if user.is_authenticated %}
-            <h4>Welcome {{ request.user.first_name }}</h4>
-            <p>Go to your <a href="{% url 'dashboard' %}">dashboard</a></p>
+                    <h4>Welcome {{ request.user.first_name }}</h4>
+                    <p>Go to your <a href="{% url 'dashboard' %}">dashboard</a></p>
                 {% else %}
-                    <h4>You are the most powerful person to help your friends and family register to vote. Ahead of the deadlines, we're calling on you to help register 10 eligible voters in your life. Get started now by signing up below:</h4>
-            <ol>
-                <li>Sign up below with a username and password so you can check back on our site and see who actually registered to vote! </li>
-                <li>After you sign up, you'll get your own voter registration link.</li>
-                <li>Then text or DM 10 friends the link! These should be people who may need to check their voter registration.</li>
-                <li>Check back on this site to see which of your friends check their registration.</li>
-            </ol>
+                    <img src="{% static 'core/voting.jpg' %}" class="img-fluid">
+
+                    <h4 class="mt-5">You are the most powerful person to help your friends and family register to vote.
+                        Ahead of the deadlines, we're calling on you to help register 10 eligible voters in your life.
+                        Get started now by signing up below:</h4>
+                    <ol>
+                        <li>Sign up below with a username and password so you can check back on our site and see who
+                            actually registered to vote!
+                        </li>
+                        <li>After you sign up, you'll get your own voter registration link.</li>
+                        <li>Then text or DM 10 friends the link! These should be people who may need to check their
+                            voter registration.
+                        </li>
+                        <li>Check back on this site to see which of your friends check their registration.</li>
+                    </ol>
 
                     <div class="signup-form">
-            {% crispy form %}
+                        {% crispy form %}
 
-                </div>
+                    </div>
 
                 {% endif %}
-                </div>
+            </div>
 
 
         </main>

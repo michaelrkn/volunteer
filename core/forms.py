@@ -60,15 +60,31 @@ class FriendFormSetHelper(FormHelper):
         super().__init__(*args, **kwargs)
 
 
-# class OutvoteForm(ModelForm):
-#     def __init__(self, *args, **kwargs):
-#         super(OutvoteForm, self).__init__(*args, **kwargs)
-#
-#         self.helper = FormHelper(self)
-#
-#         self.helper.layout.append(Submit('submit', 'Submit', css_class='btn-primary'))
-#
-#     class Meta:
-#         model = Volunteer
-#
-#         fields = ['phone']
+class ActblueForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ActblueForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper(self)
+
+        self.helper.layout.append(Submit('submit', 'Submit', css_class='btn-primary'))
+
+    class Meta:
+        model = Volunteer
+
+        fields = ['actblue_email']
+
+
+
+class UpdateForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(UpdateForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper(self)
+
+        self.helper.layout.append(Submit('submit', 'Update', css_class='btn-primary'))
+
+    class Meta:
+        model = User
+        fields = ('first_name','last_name','zip_code','phone', 'can_text',)
+

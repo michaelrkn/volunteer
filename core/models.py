@@ -6,6 +6,17 @@ from django.dispatch import receiver
 from django.conf import settings
 
 
+class Priority(models.Model):
+    desc=models.TextField()
+    link=models.URLField(blank=True,null=True)
+    rank=models.IntegerField()
+
+
+    def __str__(self):
+        return self.desc
+
+
+
 class Referrer(models.Model):
 
     name=models.CharField(max_length=100)
@@ -25,6 +36,9 @@ class Volunteer(models.Model):
     reg_started = models.IntegerField(default=0)
     outvote_texts = models.IntegerField(default=0)
     tracking=models.CharField(blank=True,max_length=30)
+
+    actblue_email = models.EmailField(null=True,blank=True,verbose_name='Email')
+    actblue_donations = models.IntegerField(default=0)
 
     # zip_regex = RegexValidator(regex=r'^\d{5}$',
     #                              message="ZIP Code must be 5 digits and entered in the format: '12345'.")

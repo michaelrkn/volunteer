@@ -1,4 +1,4 @@
-from core.models import Volunteer
+from core.models import Volunteer, User
 import civis
 
 from django.core.management.base import BaseCommand
@@ -24,19 +24,47 @@ class Command(BaseCommand):
             except Volunteer.DoesNotExist:
                 pass
         self.stdout.write(self.style.SUCCESS('Updated RTV counts'))
-        # outvote = civis.io.read_civis_sql(
-        #     "select distinct phone, actions_performed from wwav_outvote.users where phone is not null",
-        #     "TMC")
-        # self.stdout.write(self.style.SUCCESS('Made Outvote query'))
+        outvote = civis.io.read_civis_sql(
+            "select right(phone,10) as phone, count(m.id) as num from wwav_outvote.messages m left join wwav_outvote.users u on sender_id=u.id where phone is not null group by 1 having num>0",
+            "TMC",use_pandas=True)
+        self.stdout.write(self.style.SUCCESS('Made Outvote query'))
+        outvote=outvote.astype({'phone': 'string'})
+
+        for u in User.objects.all():
+
+            matches=outvote.loc[lambda outvote: outvote['phone'] == u.phone]
+
+            if not matches.empty:
+                u.volunteer.outvote_texts = matches['num'].max()
+                u.volunteer.save()
+
         # for row in outvote[1:]:
         #
         #     # v = Volunteer.objects.get(phone=row[0])
-        #     vols = Volunteer.objects.filter(phone=row[0][-10:])
-        #     if vols.exists():
-        #         for v in vols.iterator():
-        #             v.outvote_texts = row[1]
+        #     users = User.objects.filter(phone=row[0][-10:])
+        #     if users.exists():
+        #         for u in users.iterator():
+        #             u.outvote_texts = row[1]
         #             # print(v)
         #             # print(v.reg)
-        #             v.save()
-        #
-        # self.stdout.write(self.style.SUCCESS('Updated Outvote counts'))
+        #             u.save()
+
+        self.stdout.write(self.style.SUCCESS('Updated Outvote counts'))
+
+        actblue = civis.io.read_civis_sql(
+            "SELECT email, sum(amount) as num FROM tmc_ab.wwav_donations group by 1",
+            "TMC", use_pandas=True)
+        self.stdout.write(self.style.SUCCESS('Made ActBlue query'))
+        # actblue = actblue.astype({'phone': 'string'})
+
+        for v in Volunteer.objects.filter(actblue_email__isnull=False):
+
+            matches = actblue.loc[lambda actblue: actblue['email'] == v.actblue_email]
+
+            if not matches.empty:
+                v.actblue_donations = matches['num'].max()
+                v.save()
+
+
+
+        self.stdout.write(self.style.SUCCESS('Updated ActBlue counts'))
