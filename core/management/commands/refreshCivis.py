@@ -68,3 +68,22 @@ class Command(BaseCommand):
 
 
         self.stdout.write(self.style.SUCCESS('Updated ActBlue counts'))
+
+
+        analytics = civis.io.read_civis_sql(
+            "SELECT source, sum(users) as num FROM wwav_vcc.analytics where campaign='vcc_vbm' group by 1",
+            "TMC", use_pandas=True)
+        self.stdout.write(self.style.SUCCESS('Made Google Analytics query'))
+        # actblue = actblue.astype({'phone': 'string'})
+
+        for v in Volunteer.objects.all():
+
+            matches = analytics.loc[lambda analytics: analytics['source'] == v.slug]
+
+            if not matches.empty:
+                v.vbm_users = matches['num'].max()
+                v.save()
+
+
+
+        self.stdout.write(self.style.SUCCESS('Updated Google Analytics counts'))

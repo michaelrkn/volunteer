@@ -37,6 +37,8 @@ class Volunteer(models.Model):
     outvote_texts = models.IntegerField(default=0)
     tracking=models.CharField(blank=True,max_length=30)
 
+    vbm_users=models.IntegerField(default=0)
+
     actblue_email = models.EmailField(null=True,blank=True,verbose_name='Email')
     actblue_donations = models.IntegerField(default=0)
 

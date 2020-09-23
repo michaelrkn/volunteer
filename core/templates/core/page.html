@@ -23,7 +23,7 @@
             <h3>Register to vote or update your voter registration below. It will take 7 minutes tops!</h3>
 
             <h5 class="my-5">Page created by {{ pageOwner.first_name }} {{ pageOwner.last_name }}</h5>
-            <p class="lead">{{ pageOwner.first_name }} has registered <strong>{{ reg }}</strong> voters so far!</p>
+            <p class="lead">{{ pageOwner.first_name }} has registered <strong>{{ reg }}</strong> voter{{ reg|pluralize }} so far!</p>
             {#            <iframe id="rtv-iframe" width="100%" height="600px" frameborder="0" src="https://register.rockthevote.com?partner=37284&amp;tracking=Mob_2020_VR_MO-Contest_{{ pageOwner.volunteer.slug }}" scrolling="no" style="overflow: hidden; height: 642px;"></iframe>#}
             <script type="text/javascript" src="https://register.rockthevote.com/assets/rtv-iframe.js"></script>
             <script type="text/javascript">

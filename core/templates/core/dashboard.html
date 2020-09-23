@@ -23,12 +23,20 @@
             {#            <p><a href="https://twitter.com/intent/tweet?text={{ pageOwner.first_name }}%20has%20registered%202%20voters%20so%20far!%20%23MySchoolVotes%0Ahttps%3A%2F%2Fmyschoolvotes.whenweallvote.org%2F{{ pageOwner.volunteer.slug }}">Share on Twitter</a></p>#}
 
             <hr class="my-5">
+            <h3>Your Custom Vote by Mail Link</h3>
+
+            <p class="my-4 lead">So far, <strong>{{ pageOwner.volunteer.vbm_users }}</strong> {{ pageOwner.volunteer.vbm_users|pluralize:"person has,people have" }}
+                clicked on your link!
+                Data may take a full day to update.</p>
+            <a href="{% url 'actions' %}#vbm" class="button text-decoration-none">Share Your Link</a>
+
+            <hr class="my-5">
 
             <div class="row my-5">
 
                 <div class="col-md mb-5">
                     <h1 class="mt-4">Outvote</h1>
-                    <p class="lead">You have sent <strong>{{ pageOwner.volunteer.outvote_texts }}</strong> texts so
+                    <p class="lead">You have sent <strong>{{ pageOwner.volunteer.outvote_texts }}</strong> text{{ pageOwner.volunteer.outvote_texts|pluralize }} so
                         far in the WWAV
                         campaign on Outvote!</p>
                     <p>Syncing data from Outvote can take up to a day. Still not right?
