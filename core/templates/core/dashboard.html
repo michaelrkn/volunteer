@@ -14,7 +14,7 @@
                         You have registered <strong>{{ pageOwner.volunteer.reg }}</strong>
                         voters with your custom link.
                         (Registration data may take a full day to update.)
-                        <a href="{% url 'actions' %}">Share your link with more friends!</a>
+                        <a href="{% url 'friends' %}">Share your link with more friends!</a>
                     </p>
                 </div>
             </div>
@@ -36,7 +36,7 @@
                         So far, <strong>{{ pageOwner.volunteer.vbm_users }}</strong> {{ pageOwner.volunteer.vbm_users|pluralize:"person has,people have" }}
                         clicked on your link.
                         (Data may take a full day to update.)
-                        <a href="{% url 'actions' %}#vbm">Share your link with more friends!</a>
+                        <a href="{% url 'friends' %}#vbm">Share your link with more friends!</a>
                     </p>
 
                     <hr class="my-2 mb-2">

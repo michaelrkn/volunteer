@@ -55,11 +55,7 @@ def dashboard(request):
 @login_required
 @user_passes_test(profile_check, login_url='/profile')
 def actions(request):
-    # context = {'result': 'heres your link' + request.user.volunteer.slug+table[1][1]}
-    context = {'pageOwner': request.user}
-    return render(request, 'core/actions.html', context)
-
-
+    return redirect('friends')
 
 
 def page(request, urlSlug):
@@ -137,32 +133,32 @@ def profile(request):
             user.volunteer = form.save()
 
             subject, from_email = 'Here’s your custom voter registration link', 'When We All Vote <noreply@whenweallvote.org>'
-            text_content = """Send your very own voter registration link to 10 friends who you think needs to check their voter 
-            registration. Think about everyone you could reach out to -- friends, family, coworkers, 
-            people in your faith community or neighbors!\n\nCopy and paste the message below and text or DM 10 
-            friends right now: \n\nHey! We're getting so close to this election. I wanted to make sure you've 
+            text_content = """Send your very own voter registration link to 10 friends who you think needs to check their voter
+            registration. Think about everyone you could reach out to -- friends, family, coworkers,
+            people in your faith community or neighbors!\n\nCopy and paste the message below and text or DM 10
+            friends right now: \n\nHey! We're getting so close to this election. I wanted to make sure you've
             double checked your voter registration -- it'll take 7 minutes tops! """ \
                            + request.build_absolute_uri(reverse('page', args=[request.user.volunteer.slug])) \
-                           + """\n\nDon't forget to follow up with them to make sure they did it. You can use our tool to check 
+                           + """\n\nDon't forget to follow up with them to make sure they did it. You can use our tool to check
                            and see how close you are to registering all 10 friends: """ \
                            + request.build_absolute_uri(reverse('dashboard')) \
-                           + """\n\nWe know your friends and family are much more likely to understand why voting is important when 
-                           it comes from someone they trust, like you. The work you do with us now will empower voters across the 
+                           + """\n\nWe know your friends and family are much more likely to understand why voting is important when
+                           it comes from someone they trust, like you. The work you do with us now will empower voters across the
                            country this year and beyond.\n\nThanks!\n\nWhen We All Vote"""
 
-            html_content = """Send your very own voter registration link to 10 friends who you think needs to check their voter 
-            registration. Think about everyone you could reach out to&mdash;friends, family, coworkers, 
-            people in your faith community or neighbors!<br><br>Copy and paste the message below and text or DM 10 
-            friends right now: <br><br><em>Hey! We're getting so close to this election. I wanted to make sure you've 
+            html_content = """Send your very own voter registration link to 10 friends who you think needs to check their voter
+            registration. Think about everyone you could reach out to&mdash;friends, family, coworkers,
+            people in your faith community or neighbors!<br><br>Copy and paste the message below and text or DM 10
+            friends right now: <br><br><em>Hey! We're getting so close to this election. I wanted to make sure you've
             double checked your voter registration&mdash;it'll take 7 minutes tops! <a href='""" \
                            + request.build_absolute_uri(reverse('page', args=[request.user.volunteer.slug])) \
                            + "'>" + request.build_absolute_uri(reverse('page', args=[request.user.volunteer.slug])) \
-                           + """</a></em><br><br>Don't forget to follow up with them to make sure they did it. You can use our tool 
+                           + """</a></em><br><br>Don't forget to follow up with them to make sure they did it. You can use our tool
                            to check and see how close you are to registering all 10 friends: <a href='""" \
                            + request.build_absolute_uri(reverse('dashboard')) + "'>" + request.build_absolute_uri(
                 reverse('dashboard')) \
                            + """</a><br><br>We know your friends and family are much more likely to understand why voting is important
-                            when it comes from someone they trust, like you. The work you do with us now will empower voters 
+                            when it comes from someone they trust, like you. The work you do with us now will empower voters
                             across the country this year and beyond.<br><br>Thanks!<br><br>When We All Vote"""
 
             msg = EmailMultiAlternatives(subject, text_content, from_email, [user.email])
@@ -209,7 +205,7 @@ def friends(request):
     else:
         formset = FriendFormSet(queryset=Friend.objects.filter(volunteer=request.user.volunteer))  # FriendForm()
 
-    context = {'formset': formset, 'helper': helper}
+    context = {'formset': formset, 'helper': helper, 'pageOwner': request.user}
     return render(request, 'core/friends.html', context)
 
 
