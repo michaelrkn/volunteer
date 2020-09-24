@@ -164,8 +164,6 @@
 
             <ul class="main-nav__menu show-for-large menu">
 
-                <li class="main-nav-item "><a href="{% url 'index' %}" class="nav-link">Volunteer Home</a></li>
-
                 {% if user.is_authenticated %}
                     <li class="main-nav-item "><a href="{% url 'actions' %}" class="nav-link">Actions</a></li>
                     <li class="main-nav-item "><a href="{% url 'friends' %}" class="nav-link">Friends</a></li>
@@ -174,8 +172,6 @@
 
                 {% else %}
                     <li class="main-nav-item "><a href="{% url 'login' %}" class="nav-link">Login</a></li>
-                    <li class="main-nav-item "><a href="{% url 'signup' %}" class="nav-link">Sign Up</a></li>
-
                 {% endif %}
 
             </ul> <!-- /.menu -->
@@ -185,7 +181,6 @@
 
         <aside class="mobile-nav hide-for-large">
             <ul class="mobile-nav__menu menu vertical">
-                <li class="mobile-nav-item "><a href="{% url 'index' %}" class="nav-link">Volunteer Home</a></li>
 
                 {% if user.is_authenticated %}
                     <li class="mobile-nav-item "><a href="{% url 'actions' %}" class="nav-link">Actions</a></li>
@@ -195,8 +190,6 @@
 
                 {% else %}
                     <li class="mobile-nav-item "><a href="{% url 'login' %}" class="nav-link">Login</a></li>
-                    <li class="mobile-nav-item "><a href="{% url 'signup' %}" class="nav-link">Sign Up</a></li>
-
                 {% endif %}
 
             </ul> <!-- /.menu -->

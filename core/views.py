@@ -25,9 +25,11 @@ import civis
 
 
 def index(request):
-    context = {'priorities': Priority.objects.order_by('rank')}
-    return render(request, 'core/index.html', context)
-
+    if request.user.is_authenticated:
+        context = {'priorities': Priority.objects.order_by('rank')}
+        return render(request, 'core/index.html', context)
+    else:
+        return redirect('signup')
 
 def profile_check(user):
     # print(user.donator)
