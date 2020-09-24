@@ -165,7 +165,7 @@ def profile(request):
             msg.attach_alternative(html_content, "text/html")
             msg.send(fail_silently=False)
 
-            return redirect('dashboard')
+            return redirect('friends')
 
         # if a GET (or any other method) we'll create a blank form
     else:
