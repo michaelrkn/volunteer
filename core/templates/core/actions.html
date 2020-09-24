@@ -5,16 +5,13 @@
 
     <div class="container">
         <main>
-            <h1 class="my-4">Voter Registration</h1>
-            <h3>Copy and paste the message below & text or DM 10 of your friends!</h3>
+            <h1 class="my-4">Help Your Friends Vote</h1>
             {#            <p>Here's your custom voter registration page: <a href="{% url 'page' pageOwner.volunteer.slug %}">{{request.get_host}}{% url 'page' pageOwner.volunteer.slug %}</a></p>#}
 
 
-            <p>Send your voter registration link to anyone in your network who you think needs to check their voter
-                registration! Think about everyone you could reach out to&mdash;friends, family, coworkers, people in
-                your faith community or neighbors!</p>
-
-            <p>Copy and paste this message to reach out to 10 of your friends in a DM or text:</p>
+            <p>Think about everyone you could reach out to&mdash;friends, family, coworkers, people in
+                your faith community or neighbors! Copy and paste these messages to reach out to 10 of your friends in a DM or text:</p>
+            <h4>Register to Vote</h4>
             <div class="border rounded p-3 mb-2">
                 <p class="copy-vr">Hey! We’re getting so close to this election. I wanted to make sure you've double
                     checked your voter registration — it’ll take 7 minutes tops! <a
@@ -55,20 +52,8 @@
                 // removeRange(range) when it is supported
                 window.getSelection().removeAllRanges();
             });</script>
-
-
-
-
-            <hr class="my-5">
-            <h1 class="my-4" id="vbm">Vote by Mail</h1>
-            <h3>Copy and paste the message below & text or DM 10 of your friends!</h3>
-            {#            <p>Here's your custom voter registration page: <a href="{% url 'page' pageOwner.volunteer.slug %}">{{request.get_host}}{% url 'page' pageOwner.volunteer.slug %}</a></p>#}
-
-
-            <p>Send your vote by mail link to anyone in your network who you think should request a ballot! Think about everyone you could reach out to&mdash;friends, family, coworkers, people in
-                your faith community or neighbors!</p>
-
-            <p>Copy and paste this message to reach out to 10 of your friends in a DM or text:</p>
+            <br>
+            <h4 id="vbm">Vote by Mail</h4>
             <div class="border rounded p-3 mb-2">
                 <p class="copy-vbm">Hey! We’re getting so close to this election. I wanted to make sure you've requested a vote by mail ballot — it’ll take 5 minutes tops! <a
                             href="https://whenweallvote.org/vbm/?utm_source={{ pageOwner.volunteer.slug }}&utm_medium=sms&utm_campaign=vcc_vbm" target="_blank" class="font-weight-bold">
