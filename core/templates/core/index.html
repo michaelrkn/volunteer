@@ -8,49 +8,18 @@
 
             <div class="my-5">
                 {% if user.is_authenticated %}
-                    <div class="row">
-                    <div class="col-lg">
-                        <h1 class="my-5">Welcome {{ request.user.first_name }}!</h1>
-
                     {% if priorities.exists %}
-                    <h3>Volunteer priorities for this week:</h3>
+                    <h1>Volunteer priorities for this week:</h1>
 
                     {% for priority in priorities %}
                         <p class="lead"><strong>{{ forloop.counter }}.</strong> {{ priority.desc }} {% if priority.link %}<a href="{{ priority.link }}">{{ priority.link }}</a>{% endif %}</p>
-
-
                     {% endfor %}
 
                     {% endif %}
-                    <a href="{% url 'dashboard' %}" class="button text-decoration-none my-5">Go to your Dashboard</a>
-
-
-                    </div>
-                    <div class="col-lg"><iframe src="https://www.mobilize.us/embed/whenweallvote/feed/" style="border: none; overflow: hidden; height: 6483px;" width="100%" id="mobilize-feed-iframe" scrolling="no">
-</iframe></div>
-
-                    </div>
-
-
+                    <h1>Upcoming Events</h1>
+                    <iframe src="https://www.mobilize.us/embed/whenweallvote/feed/" style="border: none; overflow: hidden; height: 6483px;" width="100%" id="mobilize-feed-iframe" scrolling="no"></iframe>
                 {% else %}
-                    <img src="{% static 'core/voting.jpg' %}" class="img-fluid">
-                    <h4 class="mt-5">You are the most powerful person to help your friends and family register to vote.
-                        Ahead of the deadlines, we're calling on you to help register 10 eligible voters in your life.
-                        Get started now by signing up below:</h4>
-                    <ol>
-                        <li>Sign up below with a username and password so you can check back on our site and see who
-                            actually registered to vote!
-                        </li>
-                        <li>After you sign up, you'll get your own voter registration link.</li>
-                        <li>Then text or DM 10 friends the link! These should be people who may need to check their
-                            voter registration.
-                        </li>
-                        <li>Check back on this site to see which of your friends check their registration.</li>
-
-                    </ol>
-
-                    <a href="{% url 'signup' %}" class="button text-decoration-none">SIGN ME UP!</a>
-
+                    <!-- You'll never see this because you were redirected to signup -->
                 {% endif %}
             </div>
 
